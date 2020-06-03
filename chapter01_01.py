@@ -17,14 +17,81 @@ student_detail_1 = [{'gender': 'Male'},
 ]
 
 ### 학생 2
-student_name_1 = 'Lee'
-student_number_1 = 2
-student_grade_1 = 2
-student_detail_1 = [{'gender': 'Female'}, {'score1': 90}, {'score2': 89}]
+student_name_2 = 'Lee'
+student_number_2 = 2
+student_grade_2 = 2
+student_detail_2 = [{'gender': 'Female'}, {'score1': 90}, {'score2': 89}]
 
 ### 학생 3
-student_name_1 = 'Youn'
-student_number_1 = 3
-student_grade_1 = 3
-student_detail_1 = [{'gender': 'Male'}, {'score1': 99}, {'score2': 99}]
+student_name_3 = 'Youn'
+student_number_3 = 3
+student_grade_3 = 3
+student_detail_3 = [{'gender': 'Male'}, {'score1': 99}, {'score2': 99}]
 ###.......여러명 할 것 생각하면 머리가 아프다...
+
+# List structure
+student_names_list = ['Kim', 'Lee', 'Youn']
+student_numbers_list = [1, 2, 3]
+student_grades_list = [1, 2, 3]
+student_details_list = [
+    {'gender': 'Male', 'score1': 95, 'score2': 88},
+    {'gender': 'Female', 'score1': 90, 'score2': 89},
+    {'gender': 'Male', 'score1': 99, 'score2': 99}    
+]
+
+## member 1 delete at List structure
+del student_names_list[1]
+del student_numbers_list[1]
+del student_grades_list[1]
+del student_details_list[1]
+
+print(student_names_list)
+print(student_numbers_list)
+print(student_grades_list)
+print(student_details_list)
+print()
+print()
+## Conclusion: hard to manage structure, must map the direct position of exact data
+
+# Dictionary structure
+students_dicts = [
+    {'student_name': 'Kim', 'student_number': 1, 'student_grade': 1, 'student_detail': {'gender': 'Male', 'score1': 95, 'score2': 88}},
+    {'student_name': 'Lee', 'student_number': 2, 'student_grade': 2, 'student_detail': {'gender': 'Female', 'score1': 90, 'score2': 89}},
+    {'student_name': 'Youn', 'student_number': 3, 'student_grade': 3, 'student_detail': {'gender': 'Male', 'score1': 99, 'score2': 99}},
+]
+
+print(students_dicts)
+
+## Delete at Dict structure
+
+del students_dicts[1]
+
+print(students_dicts)
+
+## Conclusion: Easier and more comfortable than List structure but...
+##              has repeating code structure problem
+##              We can see these dict likely structures at database 
+##              Usually we use dict structure when we transmit data to 3rd party(like Oracle, Mysql...)
+
+
+# OOP(Object Oriented Program), Class structure
+# We can express everything we feel in real world at a computer by Class structure
+# Minimizes code repeat, Method, Easily Reusable after designed
+
+class Student(object):
+    def __init__(self, name, number, grade, details):
+        self._name = name
+        self._number = number
+        self._grade = grade
+        self._details = details
+
+    def __str__(self):
+        return 'str: {}'.format(self._name)
+
+student1 = Student('Kim', 1, 1, {'gender': 'Male', 'score1': 95, 'score2': 88})
+student2 = Student('Lee', 2, 2, {'gender': 'Female', 'score1': 90, 'score2': 89})
+student3 = Student('Youn', 3, 3, {'gender': 'Male', 'score1': 99, 'score2': 99})
+
+print(student1.__dict__)
+print(student2.__dict__)
+print(student3.__dict__)
