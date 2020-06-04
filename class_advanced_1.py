@@ -86,7 +86,12 @@ class Student(object):
         self._details = details
 
     def __str__(self):
-        return 'str: {}'.format(self._name)
+        return 'str: {} - {}'.format(self._name, self._number)
+
+    # __str__없을 때 __repr__(우선순위: str > repr)
+    # repr(x)로 강제 호출도 가능
+    def __repr__(self):
+        return 'repr: {} - {}'.format(self._name, self._number)
 
 student1 = Student('Kim', 1, 1, {'gender': 'Male', 'score1': 95, 'score2': 88})
 student2 = Student('Lee', 2, 2, {'gender': 'Female', 'score1': 90, 'score2': 89})
@@ -95,3 +100,19 @@ student3 = Student('Youn', 3, 3, {'gender': 'Male', 'score1': 99, 'score2': 99})
 print(student1.__dict__)
 print(student2.__dict__)
 print(student3.__dict__)
+
+
+# List 선언
+students_list = []
+
+students_list.append(student1)
+students_list.append(student2)
+students_list.append(student3)
+
+print()
+print(students_list)
+
+# 반복(__str__ 확인)
+for s in students_list:
+    print(repr(s))
+    print(s)
