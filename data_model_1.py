@@ -62,3 +62,36 @@ temp_dict = {'x': 75, 'y': 55}
 p5 = P3(**temp_dict)
 
 print(p5)
+
+# 사용
+print('Ex3_1: ', p1[0] + p2[1]) # Index Error 주의
+print('Ex3_2: ', p1.x + p2.y) # 클래스 변수 접근방식
+
+# Unpacking
+x, y = p3
+print('Ex3_3: ', x+y)
+
+# Rename 테스트
+print('Ex3_4: ', p4)
+
+print()
+print()
+
+# Namedtuple Method
+temp = [52, 38]
+
+## _make(): 새로운 객체 생성
+p4 = P1._make(temp)#(리스트를 nt에 넣어줌)
+
+print('Ex4_1: ', p4)
+
+## _fields: 필드 네임 확인
+print('Ex4_2: ', p1._fields, p2._fields, p3._fields)# nt안에 어떤 것들이 들어있는지 확인 가능
+
+## _asdict(): OrderedDict 반환
+
+print('Ex4_3: ', p1._asdict(), p4._asdict())# dictionary 형태로
+
+## _replace(): 수정된 '새로운' 객체 반환
+
+print('Ex4_4: ', p2._replace(y=100)) # 기존의 y=40 -> 100으로 대체(수정)
