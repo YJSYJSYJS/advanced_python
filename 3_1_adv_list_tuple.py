@@ -118,3 +118,32 @@ print('Ex6_2: ', id(l), l, id(m), m) # 변수에 새롭게 할당했기 때문�
 l*=2
 m*=2 # 새로운 할당이 아닌 기존 객체를 활용
 print('Ex6_3: ', id(l), l, id(m), m) # 리스트는 id가 변경되지 않았다
+print()
+
+# sort vs sorted
+# reverse, key=len, key=str.lower, key=func
+
+f_list = ['orange', 'apple', 'mango', 'papaya', 'lemon', 'strawberry', 'coconut']
+
+# sorted: 정렬 후 '새로운' 객체 반환
+print('Ex7_1: ',sorted(f_list))
+print('Ex7_2: ',sorted(f_list, reverse=True)) # 반대로
+print('Ex7_3: ',sorted(f_list, key=len)) # 길자 길이순
+print('Ex7_4: ',sorted(f_list, key=lambda x:x[-1])) # 요소의 특정 인덱스를 기준으로 정렬
+
+print('Ex7_5: ', f_list) # 변경 없음
+
+# sort: 정렬 후 객체 직접 변경
+# 반환 값 확인 (None)
+
+a = f_list.sort()
+print(a, f_list)
+print('Ex7_6: ', f_list.sort(), f_list)
+print('Ex7_7: ', f_list.sort(reverse=True), f_list)
+print('Ex7_8: ', f_list.sort(key=len), f_list)
+print('Ex7_9: ', f_list.sort(key=lambda x: x[-1]), f_list)
+print('Ex7_10: ', f_list.sort(key=lambda x: x[-1], reverse=True), f_list)
+
+
+
+
