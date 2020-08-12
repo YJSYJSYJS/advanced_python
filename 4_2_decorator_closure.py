@@ -157,17 +157,19 @@ def perf_clock(func):
         return result
     return perf_clocked
 
+@perf_clock
 def time_func(seconds):
     time.sleep(seconds)
 
+@perf_clock
 def sum_func(*numbers):
-    return sum(numers)
+    return sum(numbers)
 
-def fact_func(*numbers):
+@perf_clock
+def fact_func(n):
     return 1 if n<2 else n*fact_func(n-1)
 
-# 데코레이터 미사용
-
+# 데코레이터 미사용(without @perf_clock)
 non_deco1 = perf_clock(time_func)
 non_deco2 = perf_clock(sum_func)
 non_deco3 = perf_clock(fact_func)
@@ -182,3 +184,18 @@ non_deco1(2)
 print('*'*40, 'Called Non Deco -> sum_func')
 print('Ex7_5: ')
 non_deco2(100,200,300,500)
+print('*'*40, 'Called Non Deco -> fact_func')
+print('Ex7_6: ')
+# non_deco3(100)
+print()
+
+# # Decorator 사용
+# print('*'*40, 'Called Deco -> time_func')
+# print('Ex7_7: ')
+# time_func(2)
+# print('*'*40, 'Called Deco -> sum_func')
+# print('Ex7_8: ')
+# sum_func(100,200,300,500)
+# print('*'*40, 'Called Non Deco -> fact_func')
+# print('Ex7_9: ')
+# # fact_func(100)
