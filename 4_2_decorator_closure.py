@@ -107,3 +107,78 @@ print('Ex5_3: ', avg_closure1.__code__.co_freevars)
 print()
 print('Ex5_4: ', dir(avg_closure1.__closure__[0].cell_contents))
 print()
+
+# 잘못된 클로저 사용 예
+
+def closure_avg2():
+    # Free variable
+    cnt = 0
+    total = 0
+    # closure 영역
+    def averager(v):
+        nonlocal cnt, total # 오류 해결을 위한 부분(없으면 에러 발생(UnboundLocalError))
+        cnt+=1
+        total+=v # 밖의 free variables와 별개 -> 초기화가 되어있지않으므로 연산이 불가
+        print('def2 >>> {} / {}'.format(total, cnt))
+        return total/cnt
+    return averager
+
+avg_closure2 = closure_avg2()
+print('Ex5_5: ', avg_closure2(15))
+print('Ex5_6: ', avg_closure2(35))
+print('Ex5_7: ', avg_closure2(40))
+
+# practice Decorator
+# 장점
+## 1. 중복 제거, 코드 간결
+## 2. 클로저 보다 문법 간결
+## 3. 조합에서 사용 용이
+
+# 단점
+# 1. 디버깅 어려움
+# 2. 에러의 모호함
+# 3. 에러 발생 지점 추적 어려움
+
+import time
+
+def perf_clock(func):
+    def perf_clocked(*args):
+        # 시작 시간
+        st = time.perf_counter()
+        result = func(*args)
+        # 종료 시간
+        et = time.perf_counter() - st
+        # 함수명
+        name = func.__name__
+        # 매개변수
+        arg_str = ','.join(repr(arg) for arg in args)
+        # 출력
+        print('[%0.5fs] %s(%s) -> %r' % (et, name, arg_str, result))
+        return result
+    return perf_clocked
+
+def time_func(seconds):
+    time.sleep(seconds)
+
+def sum_func(*numbers):
+    return sum(numers)
+
+def fact_func(*numbers):
+    return 1 if n<2 else n*fact_func(n-1)
+
+# 데코레이터 미사용
+
+non_deco1 = perf_clock(time_func)
+non_deco2 = perf_clock(sum_func)
+non_deco3 = perf_clock(fact_func)
+
+print('Ex7_1: ', non_deco1, non_deco1.__code__.co_freevars)
+print('Ex7_1: ', non_deco2, non_deco2.__code__.co_freevars)
+print('Ex7_1: ', non_deco3, non_deco3.__code__.co_freevars)
+
+print('*'*40, 'Called Non Deco -> time_func')
+print('Ex7_4: ')
+non_deco1(2)
+print('*'*40, 'Called Non Deco -> sum_func')
+print('Ex7_5: ')
+non_deco2(100,200,300,500)
