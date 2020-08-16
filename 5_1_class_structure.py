@@ -158,3 +158,64 @@ i3 = IterTestC()
 print('Ex4_5: ', i3[4])
 print('Ex4_6: ', i3[4:10])
 print('Ex4_7: ', 3 in i3[1:10])
+
+# abc 활용 예제 (뽑기 기계)
+import abc
+
+class RandomMachine(abc.ABC): # metaclass=abc,ABCMeta(3.4이하는 이걸로 대체)
+    # __metaclass__ = abc.ABCMeta(3.4이하)
+    
+    # Abstract Method
+    # Decoration
+    @abc.abstractmethod
+    def load(self, iterobj):
+        '''add Iterable object'''
+
+    @abc.abstractclassmethod
+    def pick(self, iterobj):
+        '''picking random object'''
+
+    def inspect(self):
+        items = [] # self가 아님!
+        while True:
+            try:
+                items.append(self.pick())
+            except LookupError:
+                break
+            return tuple(sorted(items))
+
+import random
+
+class CraneMachine(RandomMachine):
+    def __init__(self, items):
+        self._randomizer = random.SystemRandom()
+        self._items = []
+        self.load(items)
+
+    def load(self, items): # 상위인 추상클래스에 구현부가 없기 떄문에 자식에서 구현!
+        self._items.extend(items)
+        self._randomizer.shuffle(self._items)
+
+    def pick(self):
+        try:
+            return self._items.pop()
+        except IndexError:
+            raise LookupError('Empty Crane Box')
+
+    def __call__(self):
+        return self.pick()
+
+
+# Sub class check
+print('Ex5_1: ', issubclass(RandomMachine, CraneMachine))
+print('Ex5_2: ', issubclass(CraneMachine, RandomMachine))
+
+# 상속 구조 확인
+print('Ex5_3: ', CraneMachine.__mro__)       
+
+cm = CraneMachine(range(1, 100)) # 추상 메소드 오버라이딩으로 구현 안하면 에러 발생!
+
+print('Ex5_4: ', cm._items)
+print('Ex5_5: ', cm.pick())
+print('Ex5_6: ', cm())
+print('Ex5_7: ', cm.inspect())
