@@ -11,7 +11,7 @@ class VectorP(object):
     def __iter__(self):
         return (i for i in (self.__x, self.__y)) # Generator! ()말고 [] 쓰면 리스트로 통채로 반환
 
-    @property
+    @property # instance 은닉화
     def x(self):
         print('Called Property X')
         return self.__x # __x로 부르면 오류발생하지만, x로 부르면 가능!
@@ -219,3 +219,4 @@ print('Ex5_4: ', cm._items)
 print('Ex5_5: ', cm.pick())
 print('Ex5_6: ', cm())
 print('Ex5_7: ', cm.inspect())
+
