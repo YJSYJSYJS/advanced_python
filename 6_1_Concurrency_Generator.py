@@ -129,5 +129,67 @@ temp3 = (x*3 for x in generator_ex1())
 print('Ex5_1: ', temp2)
 print('Ex5_2: ', temp3) # next가 호출되지 않았기 때문에 아직 메모리에 올라가지 않았음!!!
 
-for i in temp3:
+for i in temp2:
     print('Ex5_3: ', i)
+
+for i in temp3:
+    print('Ex5_4: ', i) # for 문에서 내부적으로 next를 호출
+
+print()
+
+# Generator example3(frequently used function)
+
+import itertools
+
+gen1 = itertools.count(1, 2.5)
+
+print('Ex6_1: ', next(gen1))
+print('Ex6_2: ', next(gen1))
+print('Ex6_3: ', next(gen1))
+print('Ex6_4: ', next(gen1)) # next호출 되기 전에는 식만 가지고 있다!
+# ... infinitly
+print()
+# 조건
+gen2 = itertools.takewhile(lambda n: n<1000, itertools.count(1, 2.5))
+
+for v in gen2:
+    print('Ex6_5: ', v)
+
+print()
+
+# 필터 반대 역할
+gen3 = itertools.filterfalse(lambda n: n<3, [1,2,3,4,5]) # 조건에 반대되는 사항들
+for v in gen3:
+    print('Ex6_6: ', v)
+
+# 누적 합계
+gen4 = itertools.accumulate([x for x in range(1, 101)])
+
+for v in gen4:
+    print('Ex6_7: ', v)
+print()
+
+# 연결1
+gen5 = itertools.chain('ABCDE', range(1, 11, 2))
+
+print('Ex6_8: ', list(gen5))
+
+# 연결2
+gen6 = itertools.chain(enumerate('ABCDE'))
+print('Ex6_9: ', list(gen6))
+
+# 개별로 쪼개주는 메서드
+gen7 = itertools.product('ABCDE')
+print('Ex6_10: ', list(gen7))
+
+# 연산
+gen8 = itertools.product('ABCDE', repeat=2) # 2개씩 묶을 수 있는 모든 조합
+print('Ex6_11: ', list(gen8))
+
+# 그룹화
+gen9 = itertools.groupby('AAAABBCCCCDDEEEE')
+# print('Ex6_12: ', list(gen9))
+for chr, group in gen9:
+    print('Ex6_12: ', chr, ':', list(group))
+
+print()
