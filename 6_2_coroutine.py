@@ -179,3 +179,65 @@ try:
     avger2.send(None)
 except StopIteration as e:
     print('Ex4_1: ', e.value)
+
+# Coroutine Ex5(yield from)
+# StopIteration 자동처리(3.7 이후 yield from -> await)
+# 중첩 코루틴 처리
+
+def gen1():
+    for x in 'AB':
+        yield x
+    for y in range(1, 4):
+        yield y
+
+t1 = gen1()
+
+print('Ex5_1: ', next(t1))
+print('Ex5_2: ', next(t1))
+print('Ex5_3: ', next(t1))
+print('Ex5_4: ', next(t1))
+print('Ex5_5: ', next(t1))
+# print('Ex5_6: ', next(t1)) # StopIteration
+
+t2 = gen1()
+
+print('Ex5_7: ', list(t2))
+print()
+
+# 중첩인 경우 좀 더 빠르게 사용할 수 있다!
+def gen2():
+    yield from 'ABCDEFG'
+    yield from range(1, 4)
+
+t3 = gen2()
+
+print('Ex5_1: ', next(t3))
+print('Ex5_2: ', next(t3))
+print('Ex5_3: ', next(t3))
+print('Ex5_4: ', next(t3))
+print('Ex5_5: ', next(t3))
+print('Ex5_6: ', next(t3)) 
+print('Ex5_6: ', next(t3)) 
+# print('Ex5_6: ', next(t3)) # StopIteration
+
+
+t4 = gen2()
+
+print('Ex5_7: ', list(t4))
+print()
+
+def gen3_sub():
+    print('Sub coroutine.')
+    x = yield 10
+    print('Recieve: ', str(x))
+    x = yield 100
+    print('Recieve: ', str(x))
+
+def gen4_main():
+    yield from gen3_sub()
+
+t5 = gen4_main()
+
+print('Ex7_1: ', next(t5))
+print('Ex7_1: ', t5.send(7))
+# print('Ex7_1: ', t5.send(77)) # StopIteration
