@@ -211,19 +211,19 @@ def gen2():
 
 t3 = gen2()
 
-print('Ex5_1: ', next(t3))
-print('Ex5_2: ', next(t3))
-print('Ex5_3: ', next(t3))
-print('Ex5_4: ', next(t3))
-print('Ex5_5: ', next(t3))
-print('Ex5_6: ', next(t3)) 
-print('Ex5_6: ', next(t3)) 
-# print('Ex5_6: ', next(t3)) # StopIteration
+print('Ex6_1: ', next(t3))
+print('Ex6_2: ', next(t3))
+print('Ex6_3: ', next(t3))
+print('Ex6_4: ', next(t3))
+print('Ex6_5: ', next(t3))
+print('Ex6_6: ', next(t3)) 
+print('Ex6_6: ', next(t3)) 
+# print('Ex6_6: ', next(t3)) # StopIteration
 
 
 t4 = gen2()
 
-print('Ex5_7: ', list(t4))
+print('Ex6_7: ', list(t4))
 print()
 
 def gen3_sub():
